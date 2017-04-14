@@ -55,14 +55,20 @@ var c = new Crawler({
 
 
 
-var url = "http://www.wunderground.com/cgi-bin/findweather/getForecast?&query=" + 02888;
+//var url = "http://www.wunderground.com/cgi-bin/findweather/getForecast?&query=" + 02888;
+
+var url = "https://www.google.com/search?q=data+mining";
+
 
 request(url, function (error, response, body) {
     if (!error) {
         var $ = cheerio.load(body),
-            temperature = $("[data-variable='temperature'] .wx-value").html();
+        links = $(".r a");
+            //bodyhtml = $.html();   //a href="/url?q=
 
-        console.log("Температура " + temperature + " градусов по Фаренгейту.");
+		//var link = $(this.attr('href'));
+
+        console.log(links);
     } else {
         console.log("Произошла ошибка: " + error);
     }
