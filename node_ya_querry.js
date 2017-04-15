@@ -31,25 +31,43 @@ for (i in array) {
     (async function() {
 
         //var url = "https://www.google.com/search?q=" + array[i];
-        var url = "https://yandex.ru/search/?text=" + array[i];
-  
+        //var url = "https://yandex.ru/search/?text=" + array[i];
+
+        var url = "https://yandex.ru/search/xml?user=user&key=key&query=" + array[i];
 
 
         await request(url, function(error, response, body) {
             if (!error) {
 
-                var $ = cheerio.load(body);
+                //var $ = cheerio.load(body);
 
                 //for GOOGLE
                 //links = $(".r a"); 
 
                 //for YANDEX
-                links = $('a');
+                //links = $('a');
+
+                //console.log(body);
+
+                var $ = cheerio.load(body, { xmlMode: true });
+                
+
+                // console.log(">>>>>>>>>><<<<<<<<<<<");
+                // console.log(">>>>>>>>>><<<<<<<<<<<");
+                // console.log(">>>>>>>>>><<<<<<<<<<<");
+                // console.log($("error").text());
+
+                // console.log($("url").text());
+
+                links = $("url");
+
+                //console.log(links);
 
 
                 links.each(function(i, link) {
 
-                    var url_res = $(link).attr("href");
+                    //var url_res = $(link).attr("href");
+                    var url_res = $(link).text();
 
                     url_res = url_res.replace("/url?q=", "").split("&")[0];
 
