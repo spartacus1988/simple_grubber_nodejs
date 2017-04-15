@@ -4,11 +4,6 @@ var fs = require('fs');
 var querystring = require("querystring");
 
 
-
-
-//var url = "https://www.google.com/search?q=data+mining";
-//var url = "https://www.google.ru/search?q=%D0%BF%D0%B8%D0%B7%D0%B4%D0%B5%D1%86";
-//var url = "https://yandex.ru/search/?msid=1492194975.19639.22887.32553&text=%D0%BF%D0%B8%D0%B7%D0%B4%D0%B5%D1%86&lr=213";
 fs.writeFile("to.txt", "START HERE" + "\n", function(err) {
     if (err)
         console.log("error : " + err);
@@ -24,7 +19,9 @@ var array = fs.readFileSync('key_words.txt').toString().split("\n");
 for (i in array) {
 
     array[i] = querystring.stringify({ q: array[i] });
-    console.log(array[i]);
+    //console.log(array[i]);
+    array[i] = array[i].substring(2);
+    //console.log(array[i]);
 }
 
 
@@ -34,12 +31,8 @@ for (i in array) {
     (async function() {
 
         //var url = "https://www.google.com/search?q=" + array[i];
-        //var url = "https://www.google.com/search?" + array[i];
-
-
-        //var url = "https://yandex.ru/search/?msid=1492194975.19639.22887.32553&text=" + array[i];
-        var url = "https://yandex.ru/search/?text=battery"
-        //var url = "https://www.google.com/search?q=" + array[i];
+        var url = "https://yandex.ru/search/?text=" + array[i];
+  
 
 
         await request(url, function(error, response, body) {
@@ -64,10 +57,10 @@ for (i in array) {
                         return;
                     }
 
-                    //console.log(url_res);
+                    console.log(url_res);
 
 
-                    if (url_res.indexOf("battery") + 1) {
+                    if (url_res.indexOf("key") + 1) {
 
 
                         fs.open("to.txt", "a", 0644, function(err, file_handle) {
